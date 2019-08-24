@@ -54,12 +54,7 @@ Concert searches will return all event results that match the query terms.  For 
 - the location
 - the date or dates that it occurs
 ##### example
-```sh
-Lineup: Metallica
-Venue: Maimarkt Gelande
-Location: Mannheim, Germany
-Date: 8/25/2019
-```
+![concert example](./images/concert-example.png)
 ### movie search
 ```sh
 $ node liri.js movie-this metallica
