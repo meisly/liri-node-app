@@ -15,10 +15,10 @@ LIRI-Bot supports four search types:
  - [Automated or simon-says](#automated-search)
  
  and returns the results directly to your screen in a pleasing easy-to-read format. 
- ![music-search-screenshot](./images/music-search-results.png)
+ ![music-search-screenshot](./images/movie-search-results.png)
 
 # usage
-`liri-bot` music search requires two arguments. The first species the type of search. The search commands for the following types are:
+`liri-bot` search requires two arguments. The first species the type of search. The search commands for the following types are:
 -  `spotify-this` for song or artist searches
 -  `concert-this` for concerts by a specific artist
 - `movie-this` for movie title searches
@@ -41,8 +41,26 @@ Music search will return all tracks results that match the query terms.  For eac
 - the album
 - a link to the preview if there is one available
 ##### example
-![music search results](./images/music-search-example.png)
+```sh
 
+Title: Chica de Calendario
+Artists: Kumbia Queers
+Album: Kumbia Nena!
+Preview: https://p.scdn.co/mp3-preview/9064c46f7bcc339b13900cf54740e96410e18df1?cid=ec76dba95e1e415185a108b0a67bc2ce
+
+
+Title: Chica de Calendario
+Artists: Kumbia Queers
+Album: God Save The Queers EP
+Preview: https://p.scdn.co/mp3-preview/6dbf47399f400762ad39b158904acb229f91f9b8?cid=ec76dba95e1e415185a108b0a67bc2ce
+
+
+Title: Chica de Calendario
+Artists: Kumbia Queers
+Album: Kumbia Nena! EP
+Preview: https://p.scdn.co/mp3-preview/9313b4a07300a9b5a38cd79353f2196b2c5eb97b?cid=ec76dba95e1e415185a108b0a67bc2ce
+
+```
 ### concert search
 ```sh
 $ node liri.js concert-this metallica
@@ -54,7 +72,28 @@ Concert searches will return all event results that match the query terms.  For 
 - the location
 - the date or dates that it occurs
 ##### example
-![concert example](./images/concert-2.png)
+```sh
+Lineup: Metallica
+Venue: Maimarkt Gelände
+Location: Mannheim, Germany
+Date: 08/25/2019
+
+Lineup: Metallica, Metallica/San Francisco Symphony
+Venue: Chase Center
+Location: San Francisco, United States
+Date: 09/06/2019
+
+Lineup: Metallica, Metallica/San Francisco Symphony
+Venue: Chase Center
+Location: San Francisco, United States
+Date: 09/08/2019
+
+Lineup: Metallica, Slipknot
+Venue: Optus Stadium
+Location: Burswood, Australia
+Date: 10/17/2019
+
+```
 ### movie search
 ```sh
 $ node liri.js movie-this the rezort
