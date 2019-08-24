@@ -15,7 +15,6 @@ LIRI-Bot supports four search types:
  - [Automated or simon-says](#automated-search)
  
  and returns the results directly to your screen in a pleasing easy-to-read format. 
- ![music-search-screenshot](./images/movie-search-results.png)
 
 # usage
 `liri-bot` search requires two arguments. The first species the type of search. The search commands for the following types are:
