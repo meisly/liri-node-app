@@ -57,7 +57,7 @@ Concert searches will return all event results that match the query terms.  For 
 ![concert example](./images/concert-2.png)
 ### movie search
 ```sh
-$ node liri.js movie-this metallica
+$ node liri.js movie-this the rezort
 ```
 #### results
 Movie searches will return a single movie result that matches the query term.  The result will include:
