@@ -6,6 +6,17 @@ var axios = require("axios");
 var moment = require("moment");
 let fs = require("fs");
 
+let message = 
+`
+  
+    ██╗     ██╗██████╗ ██╗    ██████╗  ██████╗ ████████╗
+    ██║     ██║██╔══██╗██║    ██╔══██╗██╔═══██╗╚══██╔══╝
+    ██║     ██║██████╔╝██║    ██████╔╝██║   ██║   ██║   
+    ██║     ██║██╔══██╗██║    ██╔══██╗██║   ██║   ██║   
+    ███████╗██║██║  ██║██║    ██████╔╝╚██████╔╝   ██║   
+    ╚══════╝╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝   
+`;
+
 var spotify = new Spotify(keys.spotify);
 
 let type = process.argv[2];
@@ -46,6 +57,7 @@ function mediaSearch(searchType, searchTerm) {
             break;
 
         case "help":
+            console.log(message);
             console.log(`
             Application Info
             ###################
@@ -59,7 +71,7 @@ function mediaSearch(searchType, searchTerm) {
             spotify-this    Searches Spotify for track info. Valid queries may include track titles and/or artist name.
             movie-this      Searches online database for movie info. Valid queries must include movie titles.
             simon-says      Performs searches from a file.  The file must contain both a valid search command and a query
-            `);
+            `.split("\n").map(x => x.trim()).join("\n   "));
             break;
 
         default:
@@ -70,10 +82,14 @@ function mediaSearch(searchType, searchTerm) {
 }
 //    * `concert-this`
 function concert(artist) {
-    let url = `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`;
+    let appID = keys.bandsintown.id;
+    let url = `https://rest.bandsintown.com/artists/${artist}/events?app_id=${appID}`;
     axios.get(url).then((response) => {
         let data = response.data;
-
+        if(data.length === 0){
+            console.log("That search returned no results.  Try another");
+            return;
+        }
         for (var i = 0; i < data.length; i++) {
             let lineup = data[i].lineup.join(", ");
             let venue = data[i].venue.name;
@@ -127,17 +143,24 @@ function track(song) {
 }
 //    * `movie-this`
 function movie(title) {
-    let url = "http://www.omdbapi.com/?apikey=trilogy&t=" + title;
+    let appID = keys.omdb.id;
+    let url = `http://www.omdbapi.com/?apikey=${appID}&t=${title}`;
     axios
         .get(url).then((response, error) => {
             if (response.data.Response !== 'False') {
+
                 let movie = response.data;
                 let ratings = movie.Ratings;
 
                 let title = movie.Title;
                 let year = movie.Year;
                 let imdbRate = movie.imdbRating;
-                let rottenRate = ratings[1].Value;
+                
+                let rottenRate = "NA"; //Will be overwritten if Rotten Tomatoes rating is present 
+                if(ratings.length > 1 && ratings[1].Source == "Rotten Tomatoes"){
+                    rottenRate = ratings[1].Value;
+                }
+
                 let country = movie.Country;
                 let language = movie.Language;
                 let plot = movie.Plot;
@@ -173,10 +196,11 @@ function simonSays() {
           return console.log(error);
         }
         else {
-            console.log(data);
-            let command = data.split(" ")[0];
-            let query = data.split(" ").slice(1).join(" ")
+            let txtArr = data.split(",");
+            let command = txtArr[0];
+            let query = txtArr[1].replace(/"/g, "");
+            console.log(command, query);
             mediaSearch(command, query);
         }
-})
+    });
 }
