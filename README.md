@@ -54,7 +54,7 @@ Concert searches will return all event results that match the query terms.  For 
 - the location
 - the date or dates that it occurs
 ##### example
-![concert example](./images/concert-example.png)
+![concert example](./images/concert-2.png)
 ### movie search
 ```sh
 $ node liri.js movie-this metallica
